@@ -10,14 +10,16 @@ export const LoveCard: React.FC<LoveCardProps> = ({ userName }) => {
   const [isAccepted, setIsAccepted] = useState(false);
 
   const moveNoButton = () => {
-    const x = Math.random() * 80;
-    const y = Math.random() * 80;
+    // Дэлгэцийн 10%-иас 90%-ийн хооронд санамсаргүй байрлал сонгоно
+    const x = Math.floor(Math.random() * 80) + 10;
+    const y = Math.floor(Math.random() * 80) + 10;
+    
     setNoButtonStyle({
-      position: 'absolute',
+      position: 'fixed', // Дэлгэцийн хаана ч хамаагүй үсэрдэг болгох
       left: `${x}%`,
       top: `${y}%`,
       transition: 'all 0.2s ease',
-      zIndex: 20
+      zIndex: 999
     });
   };
 
@@ -62,7 +64,10 @@ export const LoveCard: React.FC<LoveCardProps> = ({ userName }) => {
         </button>
 
         <button
+          // Хулгана дөхөхөд, дарах үед, эсвэл утсан дээр хүрэх үед бүгдэд нь үсэрнэ
           onMouseEnter={moveNoButton}
+          onClick={moveNoButton}
+          onTouchStart={moveNoButton}
           className="px-10 py-4 bg-slate-400 text-white font-bold rounded-full text-xl transition-all"
           style={noButtonStyle}
         >
